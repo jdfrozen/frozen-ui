@@ -1,11 +1,15 @@
 <template>
-  <div id="app">
-    <router-view/>
+  <div>
+    用户列表
   </div>
 </template>
 
 <script>
   export default {
-    name: 'App',
+    name: "UserList"
   }
 </script>
+
+<style scoped>
+
+</style>
