@@ -2,7 +2,7 @@
   <el-row class="container">
     <el-col :span="24" class="header">
       <el-col :span="5" class="logo" :class="isCollapse?'logo-collapse-width':'logo-width'">
-        <img :src="this.logo" />
+        <img :src="this.logo" /><div>{{appName}}</div>
       </el-col>
       <el-col :span="1">
         <div class="tools" @click.prevent="collapse">
@@ -12,9 +12,9 @@
       </el-col>
       <el-col :span="13">
         <div class="hearNavBar">
-          <el-menu :default-active="activeIndex" class="el-menu-demo" background-color="#4b5f6e" text-color="#fff"
+          <el-menu :default-active="activeIndex" class="el-menu-demo" background-color="#14889A" text-color="#fff"
                    active-text-color="#ffd04b" mode="horizontal" @select="handleSelectHearNavBar">
-            <el-menu-item index="1">首页</el-menu-item>
+            <el-menu-item index="1" @click="$router.push('main')"><i class="el-icon-s-home"></i>  </el-menu-item>
           </el-menu>
         </div>
       </el-col>
@@ -34,40 +34,44 @@
         <el-menu default-active="1-2" class="el-menu-vertical-demo" @open="handleopen" @close="handleclose" @select="handleselect" :collapse="isCollapse">
           <el-submenu index="1">
             <template slot="title">
-              <i class="el-icon-location"></i>
+              <i class="el-icon-monitor"></i>
               <span slot="title">系统管理</span>
             </template>
-            <el-menu-item index="1-1" @click="$router.push('user')">用户管理</el-menu-item>
-            <el-menu-item index="1-3" @click="$router.push('role')">角色管理</el-menu-item>
-            <el-menu-item index="1-4" @click="$router.push('menu')">菜单管理</el-menu-item>
-            <el-menu-item index="1-5" @click="$router.push('log')">日志管理</el-menu-item>
+            <el-menu-item index="1-1" @click="$router.push('user')">
+              <i class="el-icon-s-custom"></i>
+              <span slot="title">用户管理</span>
+            </el-menu-item>
+            <el-menu-item index="1-3" @click="$router.push('role')">
+              <i class="el-icon-c-scale-to-original"></i>
+              <span slot="title">角色管理</span>
+            </el-menu-item>
+            <el-menu-item index="1-4" @click="$router.push('menu')">
+              <i class="el-icon-menu"></i>
+              <span slot="title">菜单管理</span>
+            </el-menu-item>
+            <el-menu-item index="1-5" @click="$router.push('log')">
+              <i class="el-icon-s-fold"></i>
+              <span slot="title">日志管理</span>
+            </el-menu-item>
           </el-submenu>
           <el-submenu index="2">
             <template slot="title">
-              <i class="el-icon-location"></i>
+              <i class="el-icon-date"></i>
               <span slot="title">系统监控</span>
             </template>
-            <el-menu-item index="2-1" >服务监控</el-menu-item>
-            <el-menu-item index="2-2" >任务监控</el-menu-item>
+            <el-menu-item index="2-1" >
+              <i class="el-icon-pie-chart"></i>
+              <span slot="title">服务监控</span>
+            </el-menu-item>
+            <el-menu-item index="2-2" >
+              <i class="el-icon-mobile"></i>
+              <span slot="title">任务监控</span>
+            </el-menu-item>
           </el-submenu>
         </el-menu>
       </aside>
-      <section class="content-container">
-        <div class="grid-content bg-purple-light">
-          <el-col :span="24" class="breadcrumb-container">
-            <el-breadcrumb separator="/" class="breadcrumb-inner">
-              <el-breadcrumb-item v-for="item in $route.matched" :key="item.path">
-                {{ item.name }}
-              </el-breadcrumb-item>
-            </el-breadcrumb>
-          </el-col>
-          <el-col :span="24" class="content-wrapper">
-            <transition name="fade" mode="out-in">
-              <router-view></router-view>
-            </transition>
-          </el-col>
-        </div>
-      </section>
+      <!-- 主内容区域 -->
+      <main-content></main-content>
     </el-col>
   </el-row>
 </template>
@@ -75,12 +79,17 @@
 <script>
   import axios from 'axios'
   import mock from '@/mock/mock.js';
+  import MainContent from "./MainContent/MainContent"
 export default {
   name: 'Home',
+  components:{
+    MainContent
+  },
   data() {
     return {
       isCollapse: false,
       sysName: "kitty",
+      appName: "frozen-ui",
       userName: "Louis",
       userAvatar: "",
       logo: "",
@@ -119,7 +128,7 @@ export default {
   },
   mounted() {
     this.sysName = "I like Kitty";
-    this.logo = require("@/assets/logo.png");
+    this.logo = require("@/assets/user1.png");
     var user = sessionStorage.getItem("user");
     if (user) {
       this.userName = user;
@@ -140,7 +149,7 @@ export default {
     .header {
       height: 60px;
       line-height: 60px;
-      background: #4b5f6e;
+      background: #14889A;
       color: #fff;
       .userinfo {
         text-align: right;
@@ -167,7 +176,7 @@ export default {
         border-color: rgba(238, 241, 146, 0.5);
         border-right-width: 1px;
         border-right-style: solid;
-        background: #4b5f6e;
+        background: #14889A;
         text-align: left;
         img {
           width: 40px;
@@ -181,7 +190,7 @@ export default {
         }
       }
       .logo-width {
-        width: 230px;
+        width: 200px;
       }
       .logo-collapse-width {
         width: 65px;
@@ -196,7 +205,7 @@ export default {
         cursor: pointer;
       }
       .hearNavBar {
-        background: #4b5f6e;
+        background: #14889A;
         padding: 0px 0px;
         width: 100%;
         height: 60px;
@@ -212,39 +221,11 @@ export default {
       bottom: 0px;
       overflow: hidden;
       aside {
-        flex: 0 0 230px;
-        width: 230px;
+        flex: 0 0 200px;
+        width: 200px;
         .el-menu {
           height: 100%;
           text-align: left;
-        }
-      }
-      .content-container {
-        // background: #f1f2f7;
-        flex: 1;
-        // overflow-y: scroll;
-        padding: 0px;
-        .breadcrumb-container {
-          height: 28px;
-          background: #fff;
-          border-color: rgba(38, 86, 114, 0.2);
-          border-bottom-width: 1px;
-          border-bottom-style: solid;
-          background: rgba(99, 138, 161, 0.2);
-          .breadcrumb-inner {
-            padding-top: 5px;
-            padding-bottom: 5px;
-            padding-left: 5px;
-            text-align: left;
-            font-size: 18px;
-            width: 100%;
-            height: 100%;
-            float: left;
-          }
-        }
-        .content-wrapper {
-          background-color: #fff;
-          box-sizing: border-box;
         }
       }
     }
