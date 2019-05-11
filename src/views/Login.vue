@@ -53,7 +53,7 @@
         let userInfo = {account:this.loginForm.account, password:this.loginForm.password, captcha:this.loginForm.captcha}
         axios.post(`http://localhost:8080/login`,userInfo)
           .then(res=>{
-            alert(res.data.token)
+            //alert(res.data.token)
             Cookies.set('token', res.data.token) // 放置token到Cookie
             sessionStorage.setItem('user', userInfo.account) // 保存用户到本地会话
             this.$router.push('/')  // 登录成功，跳转到主页
