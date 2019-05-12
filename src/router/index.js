@@ -13,17 +13,18 @@ Vue.use(Router)
 
 const router = new Router({
   mode: 'history',
+  base: '/jdfrozen/',
   routes: [
     {
       path: '/',
       name: 'Home',
       component: Home,
       children: [
-        { path: '/user', component: User, name: '用户管理' },
-        { path: '/role', component: Role, name: '角色管理' },
-        { path: '/menu', component: Menu, name: '菜单管理' },
-        { path: '/log', component: Log, name: '日志管理' },
-        { path: '/main', component: Main, name: '首页' }
+        { path: '/user', component: User, name: 'User' },
+        { path: '/role', component: Role, name: 'Role' },
+        { path: '/menu', component: Menu, name: 'Menu' },
+        { path: '/log', component: Log, name: 'Log' },
+        { path: '/main', component: Main, name: 'Main' }
       ]
     },
     {

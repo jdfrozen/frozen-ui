@@ -79,7 +79,7 @@
 <script>
   import axios from 'axios'
   import mock from '@/mock/mock.js';
-  import MainContent from "./MainContent/MainContent"
+  import MainContent from "./MainContent/MainContent1"
 export default {
   name: 'Home',
   components:{
@@ -113,26 +113,33 @@ export default {
         alert(res)
       })
     },
+    handleopen() {
+      console.log('handleopen')
+    },
+    handleclose() {
+      console.log('handleclose')
+    },
+    handleselect(a, b) {
+      console.log('handleselect')
+    },
     //退出登录
     logout: function() {
       var _this = this;
       this.$confirm("确认退出吗?", "提示", {
         type: "warning"
+      }).then(() => {
+        sessionStorage.removeItem("user");
+        this.$router.push("/login");
       })
-        .then(() => {
-          sessionStorage.removeItem("user");
-          this.$router.push("/login");
-        })
-        .catch(() => {});
+      .catch(() => {});
     }
   },
   mounted() {
-    this.sysName = "I like Kitty";
     this.logo = require("@/assets/user1.png");
     var user = sessionStorage.getItem("user");
     if (user) {
       this.userName = user;
-      this.userAvatar = require("@/assets/user.png");
+      this.userAvatar = require("@/assets/user1.png");
     }
   }
 }
